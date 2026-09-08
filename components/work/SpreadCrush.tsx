@@ -90,12 +90,31 @@ export default function SpreadCrush({ project }: { project: Project }) {
       {/* The shipped site, after the technique that made it. Overlapping and
           dropped — depth is earned on this spread and nowhere else. */}
       <div className="grid-page mt-[clamp(3rem,10vh,7rem)]">
-        <div className="col-span-12 md:col-end-12">
-          <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
+        <div className="col-span-12 md:col-end-8">
+          <div className="mb-4">
             <PlateLabel tone="paper">Marketing site · two moments</PlateLabel>
-            <span className="t-micro dim-2">Scroll-linked reveals, pinned sections</span>
           </div>
           <ShotPair shots={project.shots} layout="layered" name={project.name} tone="paper" />
+        </div>
+
+        {/* The measure beside the pair carries the technical facts rather than
+            sitting empty — the images stay small and the row still reads full. */}
+        <div className="col-span-12 mt-10 md:col-start-9 md:col-end-13 md:mt-0">
+          <span className="t-micro dim-2 mb-5 block">Scroll-linked reveals, pinned sections</span>
+          <Reveal variant="stagger" className="flex flex-col gap-3" select=":scope > span">
+            {project.facts.map((f) => (
+              <span
+                key={f.k}
+                className="flex items-baseline justify-between gap-4 border-b pb-2"
+                style={{ borderColor: "var(--rule-soft)" }}
+              >
+                <span className="t-micro dim-2">{f.k}</span>
+                <span className="t-meta" style={{ textTransform: "none", letterSpacing: "0.02em" }}>
+                  {f.v}
+                </span>
+              </span>
+            ))}
+          </Reveal>
         </div>
       </div>
 

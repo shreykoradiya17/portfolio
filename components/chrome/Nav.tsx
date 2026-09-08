@@ -8,12 +8,14 @@
  * scroll changes is a hairline underneath it and the descriptor beside the
  * name, both of which are earned rather than decorative.
  *
+ * Spec mode has no control here by request. It is still reachable on the S key,
+ * which means it is now effectively undiscoverable — see lib/spec.tsx.
+ *
  * Mobile gets its own composition: a full panel of large type, not the desktop
  * row shrunk down.
  */
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useSpec } from "@/lib/spec";
 import { ensureGsap } from "@/lib/gsap";
 import { EASE } from "@/lib/motion";
 import { useReducedMotion } from "@/lib/hooks";
@@ -27,7 +29,6 @@ const LINKS = [
 ];
 
 export default function Nav() {
-  const { spec, toggle } = useSpec();
   const reduced = useReducedMotion();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -161,28 +162,6 @@ export default function Nav() {
                   {l.label}
                 </a>
               ))}
-
-              <span aria-hidden className="h-3 w-px" style={{ background: "currentColor", opacity: 0.28 }} />
-
-              <button
-                type="button"
-                onClick={toggle}
-                aria-pressed={spec}
-                className="t-meta group flex items-center gap-2"
-                title="Reveal the design layer — press S"
-              >
-                <span
-                  aria-hidden
-                  className="inline-block h-[7px] w-[7px] transition-all duration-300"
-                  style={{
-                    background: spec ? "var(--blueprint)" : "transparent",
-                    boxShadow: "inset 0 0 0 1px currentColor",
-                    borderRadius: spec ? "0" : "50%",
-                  }}
-                />
-                Spec
-                <span className="t-micro opacity-45" aria-hidden>[S]</span>
-              </button>
             </nav>
 
             {/* Mobile trigger */}

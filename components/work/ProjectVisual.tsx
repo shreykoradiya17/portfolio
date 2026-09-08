@@ -61,7 +61,7 @@ function Study({ project }: { project: Project }) {
 
 /** Each project keeps its own pair arrangement on the project page too. */
 const LAYOUT: Record<Project["personality"], PairLayout> = {
-  system: "stepped",
+  system: "staggered",
   immersive: "layered",
   editorial: "paired",
   precision: "balanced",

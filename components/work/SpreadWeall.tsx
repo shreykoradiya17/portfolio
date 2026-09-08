@@ -49,18 +49,18 @@ export default function SpreadWeall({ project }: { project: Project }) {
       <div className="grid-page mt-[clamp(2.5rem,7vh,5rem)] items-start">
         {/* Specimen leads on the left this time */}
         {/* Two devices, the second dropped a beat so the pair has rhythm */}
-        <div ref={media} className="col-span-12 md:col-start-1 md:col-end-6 lg:col-end-6">
+        <div ref={media} className="col-span-12 md:col-start-1 md:col-end-5 lg:col-end-5">
           <div className="mb-4">
             <PlateLabel>App screens · designed end to end</PlateLabel>
           </div>
           <div className="media-dim">
             <ShotPair shots={project.shots} layout="paired" name={project.name} />
           </div>
-          <Anno style={{ top: "-1.7rem", left: 0 }}>COL 1 → 5 · PAIRED</Anno>
+          <Anno style={{ top: "-1.7rem", left: 0 }}>COL 1 → 4 · PAIRED</Anno>
         </div>
 
         {/* Text offset right and dropped a beat */}
-        <div className="col-span-12 mt-12 flex flex-col md:col-start-7 md:col-end-13 md:mt-[clamp(1rem,4vh,3rem)] md:self-stretch lg:col-start-7 lg:col-end-12">
+        <div className="col-span-12 mt-12 flex flex-col md:col-start-6 md:col-end-13 md:mt-[clamp(1rem,4vh,3rem)] md:self-stretch lg:col-start-6 lg:col-end-12">
           <Reveal variant="rise">
             <p className="t-body m-0 max-w-[44ch]">{project.standfirst}</p>
           </Reveal>

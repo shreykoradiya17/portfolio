@@ -55,9 +55,9 @@ export default function SpreadErp({ project }: { project: Project }) {
             <span className="t-micro dim-2">Eight modules, one component library</span>
           </div>
           <div className="media-dim">
-            <ShotPair shots={project.shots} layout="stepped" name={project.name} />
+            <ShotPair shots={project.shots} layout="staggered" name={project.name} />
           </div>
-          <Anno style={{ top: "-1.6rem", left: 0 }}>COL 5 → 12 · STEPPED</Anno>
+          <Anno style={{ top: "-1.6rem", left: 0 }}>COL 5 → 12 · STAGGERED</Anno>
         </div>
 
         {/* ---- Row 2, narrow column: the argument ----------------------- */}

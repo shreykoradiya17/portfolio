@@ -543,10 +543,17 @@ ul:has(.skill-item[data-hot="1"]) .skill-item[data-hot="0"] { color: var(--graph
 
 .browser {
   --browser-h: min(56svh, 520px);
-  /* Fills its column, but never past the point where the 16:10 viewport would
-     grow taller than the height budget. Keeps the whole window on screen. */
-  inline-size: min(100%, calc(var(--browser-h) * 1.6));
+  /* Fills its column. Each spread controls scale by choosing how many columns
+     the frame gets, which is the right editorial lever — capping by height
+     everywhere left wide columns with a dead margin on the right. */
+  inline-size: 100%;
   container-type: inline-size;
+}
+
+/* Opt-in height cap, for contexts that genuinely need the whole window on
+   screen at once. */
+.browser[data-capped="1"] {
+  inline-size: min(100%, calc(var(--browser-h) * 1.6));
 }
 
 .browser-body {

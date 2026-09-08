@@ -52,6 +52,7 @@ export default function BrowserFrame({
   return (
     <div
       className={`browser ${className}`}
+      data-capped={height ? "1" : undefined}
       style={height ? ({ ["--browser-h" as string]: height }) : undefined}
     >
       <div className="browser-body relative">
