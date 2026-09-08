@@ -107,7 +107,11 @@ export default function ShotPair({
         <div className="md:w-[68%]">
           <One shot={a} label={lbl(0)} tone={tone} sizes="(max-width: 767px) 92vw, 38vw" />
         </div>
-        <div className="mt-[clamp(1.5rem,4vh,2.5rem)] md:absolute md:bottom-[-14%] md:right-0 md:mt-0 md:w-[42%]">
+        {/* Pushed past the container's right edge into the empty gutter column,
+          so the pair sits off-centre rather than tucked inside its measure.
+          Percentage inset, so it scales with the column and cannot overflow
+          the page at wide viewports. */}
+      <div className="mt-[clamp(1.5rem,4vh,2.5rem)] md:absolute md:bottom-[-14%] md:right-[-20%] md:mt-0 md:w-[42%]">
           <One shot={b} label={lbl(1)} tone={tone} delay={0.14} sizes="(max-width: 767px) 92vw, 24vw" />
         </div>
       </div>
