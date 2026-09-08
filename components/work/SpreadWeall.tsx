@@ -11,7 +11,7 @@ import SplitLines from "@/components/primitives/SplitLines";
 import { SpecColumns, Anno } from "@/components/primitives/Marks";
 import { MetaRow, PlateLabel } from "@/components/work/ProjectMeta";
 import ViewProject from "@/components/work/ViewProject";
-import ProjectShot from "@/components/work/ProjectShot";
+import ShotPair from "@/components/work/ShotPair";
 import type { Project } from "@/data/projects";
 
 export default function SpreadWeall({ project }: { project: Project }) {
@@ -48,27 +48,19 @@ export default function SpreadWeall({ project }: { project: Project }) {
 
       <div className="grid-page mt-[clamp(2.5rem,7vh,5rem)] items-start">
         {/* Specimen leads on the left this time */}
-        {/* The product itself, held narrow — the only device in the set */}
-        <div ref={media} className="col-span-8 col-start-3 md:col-start-1 md:col-end-5 lg:col-end-4">
-          <figure className="m-0">
-            <figcaption className="mb-4">
-              <PlateLabel>App screen · nearby discovery</PlateLabel>
-            </figcaption>
-            <div className="media-dim">
-              <Reveal variant="media">
-                <ProjectShot shot={project.shot} label={`${project.name} app screen`} />
-              </Reveal>
-            </div>
-          </figure>
-          <p className="t-micro dim-2 mt-4 leading-relaxed">
-            Nearby discovery, filters and profiles. One of the surfaces designed
-            end to end in Figma.
-          </p>
-          <Anno style={{ top: "-1.7rem", left: 0 }}>COL 1 → 4</Anno>
+        {/* Two devices, the second dropped a beat so the pair has rhythm */}
+        <div ref={media} className="col-span-12 md:col-start-1 md:col-end-6 lg:col-end-6">
+          <div className="mb-4">
+            <PlateLabel>App screens · designed end to end</PlateLabel>
+          </div>
+          <div className="media-dim">
+            <ShotPair shots={project.shots} layout="paired" name={project.name} />
+          </div>
+          <Anno style={{ top: "-1.7rem", left: 0 }}>COL 1 → 5 · PAIRED</Anno>
         </div>
 
         {/* Text offset right and dropped a beat */}
-        <div className="col-span-12 mt-12 flex flex-col md:col-start-6 md:col-end-13 md:mt-[clamp(1rem,4vh,3rem)] md:self-stretch lg:col-start-6 lg:col-end-11">
+        <div className="col-span-12 mt-12 flex flex-col md:col-start-7 md:col-end-13 md:mt-[clamp(1rem,4vh,3rem)] md:self-stretch lg:col-start-7 lg:col-end-12">
           <Reveal variant="rise">
             <p className="t-body m-0 max-w-[44ch]">{project.standfirst}</p>
           </Reveal>

@@ -465,13 +465,6 @@
 .surface-word:hover { color: var(--vermilion); }
 
 /* ==========================================================================
-   PROJECT 04 — data study
-   ========================================================================== */
-
-.vital-cell { transition: border-color var(--d-fast) var(--e-soft); }
-.vital-cell:hover { border-color: var(--rule-strong); }
-
-/* ==========================================================================
    PIPELINE — drawn glyph becomes built glyph
    ========================================================================== */
 

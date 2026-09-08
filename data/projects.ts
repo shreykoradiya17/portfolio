@@ -29,6 +29,8 @@ export interface Shot {
   frame: FrameKind;
   /** Shown where a browser address bar would be. A route, not a fake URL. */
   label?: string;
+  /** Human-readable caption shown beside the frame in the composition. */
+  caption?: string;
   /** Browser viewport ratio. Defaults to 16/10. */
   ratio?: string;
   /** Capture size, named in the slot and the spec annotation. */
@@ -61,8 +63,11 @@ export interface Project {
   facts: { k: string; v: string }[];
   /** Optional real media. When absent, the generative composition renders. */
   media?: { src: string; alt: string }[];
-  /** The project's captured screen, framed for its medium. */
-  shot?: Shot;
+  /**
+   * The project's captured screens, framed for its medium. Two per project —
+   * each spread composes the pair differently.
+   */
+  shots?: Shot[];
 }
 
 export const projects: Project[] = [
@@ -78,13 +83,24 @@ export const projects: Project[] = [
     standfirst:
       "An internal ERP built as a single-page React application. Eight modules, eight roles, one component library — and a permission model that had to be legible to the people using it, not just correct in the database.",
     personality: "system",
-    shot: {
-      src: "/work/technource-erp/board.png",
-      alt: "Technource ERP: the projects module, showing a sprint board with task cards across columns.",
-      frame: "browser",
-      label: "ERP / projects / board",
-      spec: "1440 × 900",
-    },
+    shots: [
+      {
+        src: "/work/technource-erp/01-board.png",
+        alt: "Technource ERP, projects module: a sprint board with task cards arranged across columns.",
+        frame: "browser",
+        label: "ERP / projects / board",
+        caption: "Projects · board, drag & drop, sprint sync",
+        spec: "1440 × 900",
+      },
+      {
+        src: "/work/technource-erp/02-reporting.png",
+        alt: "Technource ERP, reporting module: dashboards summarising attendance and project data.",
+        frame: "browser",
+        label: "ERP / reporting",
+        caption: "Reporting · dashboards across eight modules",
+        spec: "1440 × 900",
+      },
+    ],
     chapters: [
       {
         label: "The problem",
@@ -131,13 +147,24 @@ export const projects: Project[] = [
     standfirst:
       "A marketing site for a social product, where the interface had to do the persuading. Scroll-linked reveals, pinned sections and timeline transitions carry the narrative — and an interactive Three.js scene in the hero responds to both scroll and pointer.",
     personality: "immersive",
-    shot: {
-      src: "/work/crushwithme/home.png",
-      alt: "CrushWithMe marketing site: the home page hero, with its interactive three-dimensional scene.",
-      frame: "browser",
-      label: "crushwithme / home",
-      spec: "1440 × 900",
-    },
+    shots: [
+      {
+        src: "/work/crushwithme/01-home.png",
+        alt: "CrushWithMe marketing site: the home page hero with its interactive three-dimensional scene.",
+        frame: "browser",
+        label: "crushwithme / home",
+        caption: "Home · the interactive hero",
+        spec: "1440 × 900",
+      },
+      {
+        src: "/work/crushwithme/02-experience.png",
+        alt: "CrushWithMe marketing site: a scroll-linked section further down the page.",
+        frame: "browser",
+        label: "crushwithme / experience",
+        caption: "Pinned section · scroll-linked reveal",
+        spec: "1440 × 900",
+      },
+    ],
     chapters: [
       {
         label: "The hero",
@@ -179,12 +206,22 @@ export const projects: Project[] = [
     standfirst:
       "I owned the UI/UX for a social networking app — high-fidelity Figma screens, the design system behind them, and every state they can be in. Then I built the marketing site as a custom WordPress theme from scratch.",
     personality: "editorial",
-    shot: {
-      src: "/work/weall/app-map.png",
-      alt: "WeAll app: a map of nearby users, with a selected profile card showing distance, online status and a send-message action.",
-      frame: "phone",
-      spec: "393 × 852 pt",
-    },
+    shots: [
+      {
+        src: "/work/weall/01-map.png",
+        alt: "WeAll app: a map of nearby users, with a selected profile card showing distance, online status and a send-message action.",
+        frame: "phone",
+        caption: "Nearby discovery · map, filters",
+        spec: "393 × 852 pt",
+      },
+      {
+        src: "/work/weall/02-profile.png",
+        alt: "WeAll app: a second screen from the product, designed in the same system.",
+        frame: "phone",
+        caption: "Profiles, groups and messaging",
+        spec: "393 × 852 pt",
+      },
+    ],
     chapters: [
       {
         label: "Scope",
@@ -226,13 +263,24 @@ export const projects: Project[] = [
     standfirst:
       "A healthcare platform with four portals behind it — Care Provider, Staff, Client and Admin — plus a multilingual, server-rendered marketing site. The whole brief was legibility: vitals, care plans and alerts read correctly at a glance, by people who are busy.",
     personality: "precision",
-    shot: {
-      src: "/work/myvitalview/dashboard.png",
-      alt: "MyVitalView: a care provider dashboard showing vital-sign trends, care plans and alerts.",
-      frame: "browser",
-      label: "myvitalview / care provider",
-      spec: "1440 × 900",
-    },
+    shots: [
+      {
+        src: "/work/myvitalview/01-provider.png",
+        alt: "MyVitalView: a care provider dashboard showing vital-sign trends, care plans and alerts.",
+        frame: "browser",
+        label: "myvitalview / care provider",
+        caption: "Care provider · clinical dashboard",
+        spec: "1440 × 900",
+      },
+      {
+        src: "/work/myvitalview/02-client.png",
+        alt: "MyVitalView: the client-facing portal, presenting the same record for a different reader.",
+        frame: "browser",
+        label: "myvitalview / client",
+        caption: "Client portal · the same record, read differently",
+        spec: "1440 × 900",
+      },
+    ],
     chapters: [
       {
         label: "Front of house",

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { projects, bySlug } from "@/data/projects";
-import { resolveShot } from "@/lib/shots.server";
+import { resolveShots } from "@/lib/shots.server";
 import { site } from "@/data/site";
 import { TransitionReady } from "@/lib/transition";
 import NamePlate from "@/components/work/NamePlate";
@@ -46,7 +46,7 @@ export default async function ProjectPage({
 
   const i = projects.findIndex((p) => p.slug === project.slug);
   const next = projects[(i + 1) % projects.length];
-  const resolved = resolveShot(project);
+  const resolved = resolveShots(project);
 
   return (
     <>

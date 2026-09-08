@@ -14,7 +14,7 @@ import Reveal from "@/components/primitives/Reveal";
 import SplitLines from "@/components/primitives/SplitLines";
 import { Anno } from "@/components/primitives/Marks";
 import { MetaRow, PlateLabel } from "@/components/work/ProjectMeta";
-import ProjectShot from "@/components/work/ProjectShot";
+import ShotPair from "@/components/work/ShotPair";
 import ViewProject from "@/components/work/ViewProject";
 import { useInView, usePointerFine, useReducedMotion } from "@/lib/hooks";
 import type { Project } from "@/data/projects";
@@ -87,27 +87,19 @@ export default function SpreadCrush({ project }: { project: Project }) {
         </div>
       </div>
 
-      {/* The shipped site, after the technique that made it */}
+      {/* The shipped site, after the technique that made it. Overlapping and
+          dropped — depth is earned on this spread and nowhere else. */}
       <div className="grid-page mt-[clamp(3rem,10vh,7rem)]">
-        <div className="col-span-12 md:col-end-11">
-          <figure className="m-0">
-            <figcaption className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
-              <PlateLabel tone="paper">Marketing site · home</PlateLabel>
-              <span className="t-micro dim-2">Scroll-linked reveals, pinned sections</span>
-            </figcaption>
-            <Reveal variant="media">
-              <ProjectShot
-                shot={project.shot}
-                label={`${project.name} marketing site`}
-                height="min(66svh, 670px)"
-                sizes="(max-width: 767px) 92vw, 78vw"
-              />
-            </Reveal>
-          </figure>
+        <div className="col-span-12 md:col-end-12">
+          <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
+            <PlateLabel tone="paper">Marketing site · two moments</PlateLabel>
+            <span className="t-micro dim-2">Scroll-linked reveals, pinned sections</span>
+          </div>
+          <ShotPair shots={project.shots} layout="layered" name={project.name} tone="paper" />
         </div>
       </div>
 
-      <div className="grid-page mt-[clamp(3rem,8vh,6rem)]">
+      <div className="grid-page mt-[clamp(6rem,16vh,11rem)]">
         <Reveal variant="stagger" select=":scope > div" className="col-span-12">
           <MetaRow project={project} />
         </Reveal>

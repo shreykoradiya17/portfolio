@@ -3,19 +3,18 @@
 /**
  * Spread 01 — structured, grid-locked, technical.
  *
- * A narrow spec column against a wide technical drawing, with the drawing
- * spanning both grid rows so the two sides finish together. This is the most
- * rigid composition in the set on purpose: it is the enterprise project.
+ * A narrow spec column against a stepped pair of windows: the second indented
+ * beneath the first, so the two read as a system rather than a gallery. The
+ * most rigid composition in the set on purpose — it is the enterprise project.
  */
 
 import { useRef } from "react";
 import Reveal from "@/components/primitives/Reveal";
 import SplitLines from "@/components/primitives/SplitLines";
 import { SpecColumns, Anno } from "@/components/primitives/Marks";
-import { MetaRow } from "@/components/work/ProjectMeta";
+import { MetaRow, PlateLabel } from "@/components/work/ProjectMeta";
 import ViewProject from "@/components/work/ViewProject";
-import ProjectShot from "@/components/work/ProjectShot";
-import { PlateLabel } from "@/components/work/ProjectMeta";
+import ShotPair from "@/components/work/ShotPair";
 import type { Project } from "@/data/projects";
 
 export default function SpreadErp({ project }: { project: Project }) {
@@ -26,7 +25,7 @@ export default function SpreadErp({ project }: { project: Project }) {
       <SpecColumns />
 
       <div className="grid-page relative items-start">
-        {/* ---- Row 1, narrow column: the project's name plate ------------- */}
+        {/* ---- Row 1, narrow column: the name plate --------------------- */}
         <div className="col-span-12 md:col-start-1 md:col-end-5">
           <Reveal variant="rise" className="flex items-baseline gap-4">
             <span
@@ -46,30 +45,22 @@ export default function SpreadErp({ project }: { project: Project }) {
           </Reveal>
         </div>
 
-        {/* ---- The drawing, spanning both rows ---------------------------- */}
+        {/* ---- The pair, spanning both rows ----------------------------- */}
         <div
           ref={media}
           className="col-span-12 mt-12 md:col-start-5 md:col-end-13 md:row-start-1 md:row-end-3 md:mt-0 md:self-start"
         >
-          <figure className="m-0">
-            <figcaption className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
-              <PlateLabel>Web app · sprint board</PlateLabel>
-              <span className="t-micro dim-2">Internal ERP, eight modules</span>
-            </figcaption>
-            <div className="media-dim">
-              <Reveal variant="media">
-                <ProjectShot
-                  shot={project.shot}
-                  label={`${project.name} sprint board`}
-                  sizes="(max-width: 767px) 92vw, 62vw"
-                />
-              </Reveal>
-            </div>
-          </figure>
-          <Anno style={{ top: "-1.6rem", left: 0 }}>COL 5 → 12</Anno>
+          <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
+            <PlateLabel>Web app · two modules</PlateLabel>
+            <span className="t-micro dim-2">Eight modules, one component library</span>
+          </div>
+          <div className="media-dim">
+            <ShotPair shots={project.shots} layout="stepped" name={project.name} />
+          </div>
+          <Anno style={{ top: "-1.6rem", left: 0 }}>COL 5 → 12 · STEPPED</Anno>
         </div>
 
-        {/* ---- Row 2, narrow column: the argument ------------------------- */}
+        {/* ---- Row 2, narrow column: the argument ----------------------- */}
         <div className="col-span-12 mt-10 md:col-start-1 md:col-end-5 md:mt-[clamp(2rem,5vh,3.5rem)]">
           <SplitLines as="p" className="t-title m-0" stagger={0.06}>
             {project.headline}

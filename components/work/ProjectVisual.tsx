@@ -1,12 +1,12 @@
 "use client";
 
 /**
- * A project page's visuals: the captured screen first, framed for its medium,
- * then the generated composition that explains the thinking behind it.
+ * A project page's visuals: both captures, framed for the medium, then the
+ * generated composition that explains the thinking behind them.
  *
- * The split is deliberate. The home spread shows the artifact; the project page
- * shows the artifact and then the system, the specimen or the data study that
- * produced it.
+ * The split is deliberate. A home spread shows the artifact; the project page
+ * shows the artifact and then the system or specimen that produced it.
+ * MyVitalView has no study — its two portals make the point on their own.
  */
 
 import { useRef } from "react";
@@ -14,8 +14,7 @@ import dynamic from "next/dynamic";
 import { useInView, usePointerFine, useReducedMotion } from "@/lib/hooks";
 import ErpSystemMap from "@/components/work/ErpSystemMap";
 import WeallSpecimen from "@/components/work/WeallSpecimen";
-import VitalCharts from "@/components/work/VitalCharts";
-import ProjectShot from "@/components/work/ProjectShot";
+import ShotPair, { type PairLayout } from "@/components/work/ShotPair";
 import { PlateLabel } from "@/components/work/ProjectMeta";
 import type { Project } from "@/data/projects";
 
@@ -50,18 +49,27 @@ function SceneStage() {
   );
 }
 
-/** The generated composition behind each project. */
+/** The generated composition behind each project, where there is one. */
 function Study({ project }: { project: Project }) {
   switch (project.personality) {
     case "system": return <ErpSystemMap />;
     case "immersive": return <SceneStage />;
     case "editorial": return <WeallSpecimen />;
-    case "precision": return <VitalCharts />;
+    default: return null;
   }
 }
 
+/** Each project keeps its own pair arrangement on the project page too. */
+const LAYOUT: Record<Project["personality"], PairLayout> = {
+  system: "stepped",
+  immersive: "layered",
+  editorial: "paired",
+  precision: "balanced",
+};
+
 export default function ProjectVisual({ project }: { project: Project }) {
   const onInk = project.personality === "immersive";
+  const study = <Study project={project} />;
 
   return (
     <div className="flex flex-col gap-[clamp(3rem,9vh,7rem)]">
@@ -74,31 +82,27 @@ export default function ProjectVisual({ project }: { project: Project }) {
           ))}
         </figure>
       ) : (
-        project.shot && (
-          <figure className="m-0">
-            <figcaption className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
+        project.shots?.length ? (
+          <div>
+            <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
               <PlateLabel tone={onInk ? "paper" : "ink"}>
-                {project.shot.frame === "phone" ? "App screen" : "Web screen"}
+                {project.shots[0].frame === "phone" ? "App screens" : "Web screens"}
               </PlateLabel>
-              {project.shot.label ? (
-                <span className="t-micro dim-2">{project.shot.label}</span>
-              ) : null}
-            </figcaption>
-            <div className={project.shot.frame === "phone" ? "flex justify-center md:justify-start" : ""}>
-              <ProjectShot
-                shot={project.shot}
-                label={`${project.name} screen`}
-                height={project.shot.frame === "phone" ? "min(72svh, 660px)" : "min(64svh, 620px)"}
-                sizes={project.shot.frame === "phone"
-                  ? "(max-width: 767px) 62vw, 30vw"
-                  : "(max-width: 767px) 92vw, 84vw"}
-              />
+              <span className="t-micro dim-2">
+                {project.shots.length} of the surfaces
+              </span>
             </div>
-          </figure>
-        )
+            <ShotPair
+              shots={project.shots}
+              layout={LAYOUT[project.personality]}
+              name={project.name}
+              tone={onInk ? "paper" : "ink"}
+            />
+          </div>
+        ) : null
       )}
 
-      <Study project={project} />
+      {study}
     </div>
   );
 }

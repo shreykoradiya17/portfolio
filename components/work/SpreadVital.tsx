@@ -12,8 +12,7 @@ import SplitLines from "@/components/primitives/SplitLines";
 import { SpecColumns, Anno } from "@/components/primitives/Marks";
 import { MetaRow } from "@/components/work/ProjectMeta";
 import ViewProject from "@/components/work/ViewProject";
-import VitalCharts from "@/components/work/VitalCharts";
-import ProjectShot from "@/components/work/ProjectShot";
+import ShotPair from "@/components/work/ShotPair";
 import { PlateLabel } from "@/components/work/ProjectMeta";
 import type { Project } from "@/data/projects";
 
@@ -60,37 +59,18 @@ export default function SpreadVital({ project }: { project: Project }) {
         </Reveal>
       </div>
 
-      {/* The portal, centred — the only symmetric composition in the set */}
+      {/* Two equal portals, symmetric — the only pair in the set that does
+          not offset. After three offset compositions, centring reads as
+          restraint rather than default. */}
       <div ref={media} className="grid-page relative mt-[clamp(3rem,9vh,6rem)]">
-        <div className="col-span-12 flex flex-col items-center md:col-start-2 md:col-end-12">
-          <figure className="m-0 w-full">
-            <figcaption className="mb-4 flex flex-wrap items-baseline justify-center gap-3">
-              <PlateLabel>Care provider portal · dashboard</PlateLabel>
-            </figcaption>
-            {/* Block-level centring, not flex. `.browser` sizes itself with a
-                percentage, and a percentage width inside a shrink-to-fit flex
-                item is circular — it collapses to nothing. */}
-            <div className="media-dim">
-              <Reveal variant="media" className="w-full">
-                <ProjectShot
-                  shot={project.shot}
-                  label={`${project.name} care provider dashboard`}
-                  className="mx-auto"
-                  sizes="(max-width: 767px) 92vw, 76vw"
-                />
-              </Reveal>
-            </div>
-          </figure>
-        </div>
-      </div>
-
-      {/* Then the data study the design rests on */}
-      <div className="grid-page relative mt-[clamp(3rem,9vh,6rem)]">
-        <div className="col-span-12">
-          <Reveal variant="mask" className="media-dim">
-            <VitalCharts />
-          </Reveal>
-          <Anno style={{ top: "-1.6rem", left: 0 }}>COL 1 → 12 · SYMMETRIC</Anno>
+        <div className="col-span-12 md:col-start-2 md:col-end-12">
+          <div className="mb-4 flex justify-center">
+            <PlateLabel>Four portals · two of them</PlateLabel>
+          </div>
+          <div className="media-dim">
+            <ShotPair shots={project.shots} layout="balanced" name={project.name} />
+          </div>
+          <Anno style={{ top: "-1.7rem", left: 0 }}>COL 2 → 11 · SYMMETRIC</Anno>
         </div>
       </div>
 
