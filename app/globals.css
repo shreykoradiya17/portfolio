@@ -117,7 +117,9 @@
 /* Tactile grain — rasterized once by the compositor, never re-filtered */
 .grain {
   position: fixed;
-  inset: -1px;
+  /* inset: 0, not -1px. A fixed layer still contributes to scrollWidth, and
+     the negative inset added a pixel of document overflow at wide viewports. */
+  inset: 0;
   z-index: 90;
   pointer-events: none;
   background-image: var(--grain);
@@ -244,6 +246,10 @@
 .spec-columns {
   position: absolute;
   inset: 0;
+  /* Twelve fractional columns round up to a fraction of a pixel past the
+     viewport on wide screens. This is a decorative overlay, so clipping it is
+     free and keeps the document from reporting phantom overflow. */
+  overflow: clip;
   pointer-events: none;
   padding-inline: var(--gx);
   display: grid;
@@ -533,3 +539,136 @@
 .skill-item[data-hot="1"] { color: var(--vermilion); transform: translateY(-2px); }
 /* When any sibling is hot, the rest step back — the list reads as one object. */
 ul:has(.skill-item[data-hot="1"]) .skill-item[data-hot="0"] { color: var(--graphite-2); }
+
+/* ==========================================================================
+   BROWSER FRAME
+   The drawn version of a browser window: ink chrome, hairline separator, a
+   mono label where the address bar would be, and the three window dots as
+   outlined circles rather than filled candy. Height-driven like the phone, so
+   the whole window fits the viewport and the width follows from the ratio.
+   ========================================================================== */
+
+.browser {
+  --browser-h: min(56svh, 520px);
+  /* Fills its column, but never past the point where the 16:10 viewport would
+     grow taller than the height budget. Keeps the whole window on screen. */
+  inline-size: min(100%, calc(var(--browser-h) * 1.6));
+  container-type: inline-size;
+}
+
+.browser-body {
+  inline-size: 100%;
+  border-radius: 1cqw;
+  overflow: hidden;
+  background: var(--ink);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--paper) 20%, transparent);
+}
+
+.browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 2cqw;
+  block-size: 3cqw;
+  min-block-size: 22px;
+  padding-inline: 1.4cqw;
+  border-bottom: 1px solid color-mix(in oklab, var(--paper) 16%, transparent);
+}
+
+.browser-dots { display: flex; gap: 0.9cqw; flex: none; }
+.browser-dots > i {
+  display: block;
+  inline-size: 0.9cqw;
+  aspect-ratio: 1;
+  min-inline-size: 7px;
+  border-radius: 50%;
+  /* Outlined, not filled — the drawn state of a window control. */
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--paper) 42%, transparent);
+}
+
+.browser-label {
+  color: color-mix(in oklab, var(--paper) 52%, transparent);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.1em;
+}
+
+.browser-view {
+  position: relative;
+  inline-size: 100%;
+  overflow: hidden;
+  background: var(--paper-2);
+}
+
+[data-spec="on"] .browser-body {
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--blueprint) 55%, transparent);
+}
+
+/* ==========================================================================
+   PHONE FRAME
+   iPhone 15/16 Pro geometry. Height-driven: sized from the viewport so the
+   whole device is visible without scrolling, with the width following from the
+   aspect ratio. `max-inline-size` keeps it inside a narrow column, and because
+   aspect-ratio is declared the height gives way rather than the device
+   squashing. Radii in cqw so they scale without distorting.
+   ========================================================================== */
+
+.phone {
+  --phone-h: min(58svh, 520px);
+  aspect-ratio: 393 / 852;
+  /* Width is the driver, derived from the height budget and capped at the
+     column. A definite `block-size` plus `max-inline-size` would win over the
+     aspect ratio and squash the device on narrow screens instead of shrinking
+     it. */
+  inline-size: min(100%, calc(var(--phone-h) * 393 / 852));
+  block-size: auto;
+  container-type: inline-size;
+}
+
+.phone-body {
+  inline-size: 100%;
+  block-size: 100%;
+  /* 1.7cqw bezel; body radius = screen radius + bezel */
+  padding: 1.7cqw;
+  border-radius: 15.7cqw;
+  background: var(--ink);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--paper) 22%, transparent);
+}
+
+.phone-screen {
+  position: relative;
+  block-size: 100%;
+  inline-size: 100%;
+  overflow: hidden;
+  border-radius: 14cqw;
+  background: var(--paper-2);
+}
+
+.phone-island {
+  position: absolute;
+  top: 4.5cqw;
+  left: 50%;
+  translate: -50% 0;
+  inline-size: 31.8cqw;
+  block-size: 9.16cqw;
+  border-radius: 4.58cqw;
+  background: #000;
+  pointer-events: none;
+}
+
+/* Buttons sit on warm paper, so they have to be dark to read at all — a light
+   bar outside the bezel is invisible. Present, not modelled. */
+.phone-btn {
+  position: absolute;
+  inline-size: 1.1cqw;
+  border-radius: 0.55cqw;
+  background: var(--ink);
+}
+.phone-btn--action { left: -0.75cqw;  top: 17%;   block-size: 5.4%; }
+.phone-btn--vol-up { left: -0.75cqw;  top: 25.5%; block-size: 8%; }
+.phone-btn--vol-dn { left: -0.75cqw;  top: 35.5%; block-size: 8%; }
+.phone-btn--power  { right: -0.75cqw; top: 26%;   block-size: 12%; }
+
+[data-spec="on"] .phone-body {
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--blueprint) 55%, transparent);
+}

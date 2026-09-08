@@ -9,14 +9,14 @@
  * variety is the point — a series, not a template applied four times.
  */
 
-import { projects } from "@/data/projects";
+import { projects as allProjects, type Project } from "@/data/projects";
 import { SectionMark } from "@/components/primitives/Marks";
 import SpreadErp from "@/components/work/SpreadErp";
 import SpreadCrush from "@/components/work/SpreadCrush";
 import SpreadWeall from "@/components/work/SpreadWeall";
 import SpreadVital from "@/components/work/SpreadVital";
 
-export default function WorkIndex() {
+export default function WorkIndex({ projects = allProjects }: { projects?: Project[] }) {
   const [erp, crush, weall, vital] = projects;
 
   return (

@@ -9,9 +9,9 @@ import { useRef } from "react";
 import Reveal from "@/components/primitives/Reveal";
 import SplitLines from "@/components/primitives/SplitLines";
 import { SpecColumns, Anno } from "@/components/primitives/Marks";
-import { MetaRow } from "@/components/work/ProjectMeta";
+import { MetaRow, PlateLabel } from "@/components/work/ProjectMeta";
 import ViewProject from "@/components/work/ViewProject";
-import WeallSpecimen from "@/components/work/WeallSpecimen";
+import ProjectShot from "@/components/work/ProjectShot";
 import type { Project } from "@/data/projects";
 
 export default function SpreadWeall({ project }: { project: Project }) {
@@ -48,20 +48,32 @@ export default function SpreadWeall({ project }: { project: Project }) {
 
       <div className="grid-page mt-[clamp(2.5rem,7vh,5rem)] items-start">
         {/* Specimen leads on the left this time */}
-        <div ref={media} className="col-span-12 md:col-span-6 lg:col-span-6">
-          <Reveal variant="mask" className="media-dim">
-            <WeallSpecimen />
-          </Reveal>
-          <Anno style={{ top: "-1.6rem", left: 0 }}>COL 1 → 6</Anno>
+        {/* The product itself, held narrow — the only device in the set */}
+        <div ref={media} className="col-span-8 col-start-3 md:col-start-1 md:col-end-5 lg:col-end-4">
+          <figure className="m-0">
+            <figcaption className="mb-4">
+              <PlateLabel>App screen · nearby discovery</PlateLabel>
+            </figcaption>
+            <div className="media-dim">
+              <Reveal variant="media">
+                <ProjectShot shot={project.shot} label={`${project.name} app screen`} />
+              </Reveal>
+            </div>
+          </figure>
+          <p className="t-micro dim-2 mt-4 leading-relaxed">
+            Nearby discovery, filters and profiles. One of the surfaces designed
+            end to end in Figma.
+          </p>
+          <Anno style={{ top: "-1.7rem", left: 0 }}>COL 1 → 4</Anno>
         </div>
 
         {/* Text offset right and dropped a beat */}
-        <div className="col-span-12 mt-10 md:col-start-8 md:col-end-13 md:mt-[clamp(2rem,6vh,5rem)]">
+        <div className="col-span-12 mt-12 flex flex-col md:col-start-6 md:col-end-13 md:mt-[clamp(1rem,4vh,3rem)] md:self-stretch lg:col-start-6 lg:col-end-11">
           <Reveal variant="rise">
             <p className="t-body m-0 max-w-[44ch]">{project.standfirst}</p>
           </Reveal>
 
-          <Reveal variant="stagger" className="mt-8 flex flex-col gap-3" select=":scope > span">
+          <Reveal variant="stagger" className="mt-8 flex flex-col gap-3 md:max-w-[30rem]" select=":scope > span">
             {project.facts.map((f) => (
               <span key={f.k} className="flex items-baseline justify-between gap-4 border-b border-rule-soft pb-2">
                 <span className="t-micro dim-2">{f.k}</span>
@@ -70,7 +82,9 @@ export default function SpreadWeall({ project }: { project: Project }) {
             ))}
           </Reveal>
 
-          <Reveal variant="rise" delay={0.1} className="mt-8">
+          {/* Pushed to the foot of the column so it lands level with the
+              device's base instead of leaving one open corner. */}
+          <Reveal variant="rise" delay={0.1} className="mt-8 md:mt-auto md:pt-[clamp(2rem,6vh,4rem)]">
             <ViewProject project={project} mediaRef={media} />
           </Reveal>
         </div>

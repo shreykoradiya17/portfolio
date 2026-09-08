@@ -14,6 +14,7 @@ import Reveal from "@/components/primitives/Reveal";
 import SplitLines from "@/components/primitives/SplitLines";
 import { Anno } from "@/components/primitives/Marks";
 import { MetaRow, PlateLabel } from "@/components/work/ProjectMeta";
+import ProjectShot from "@/components/work/ProjectShot";
 import ViewProject from "@/components/work/ViewProject";
 import { useInView, usePointerFine, useReducedMotion } from "@/lib/hooks";
 import type { Project } from "@/data/projects";
@@ -83,6 +84,26 @@ export default function SpreadCrush({ project }: { project: Project }) {
           </div>
 
           <Anno style={{ top: "-1.6rem", left: "var(--gx)" }}>SECTION · ON-INK · BLEED</Anno>
+        </div>
+      </div>
+
+      {/* The shipped site, after the technique that made it */}
+      <div className="grid-page mt-[clamp(3rem,10vh,7rem)]">
+        <div className="col-span-12 md:col-end-11">
+          <figure className="m-0">
+            <figcaption className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
+              <PlateLabel tone="paper">Marketing site · home</PlateLabel>
+              <span className="t-micro dim-2">Scroll-linked reveals, pinned sections</span>
+            </figcaption>
+            <Reveal variant="media">
+              <ProjectShot
+                shot={project.shot}
+                label={`${project.name} marketing site`}
+                height="min(66svh, 670px)"
+                sizes="(max-width: 767px) 92vw, 78vw"
+              />
+            </Reveal>
+          </figure>
         </div>
       </div>
 

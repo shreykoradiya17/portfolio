@@ -14,7 +14,8 @@ import SplitLines from "@/components/primitives/SplitLines";
 import { SpecColumns, Anno } from "@/components/primitives/Marks";
 import { MetaRow } from "@/components/work/ProjectMeta";
 import ViewProject from "@/components/work/ViewProject";
-import ErpSystemMap from "@/components/work/ErpSystemMap";
+import ProjectShot from "@/components/work/ProjectShot";
+import { PlateLabel } from "@/components/work/ProjectMeta";
 import type { Project } from "@/data/projects";
 
 export default function SpreadErp({ project }: { project: Project }) {
@@ -48,12 +49,24 @@ export default function SpreadErp({ project }: { project: Project }) {
         {/* ---- The drawing, spanning both rows ---------------------------- */}
         <div
           ref={media}
-          className="col-span-12 mt-12 md:col-start-5 md:col-end-13 md:row-start-1 md:row-end-3 md:mt-0"
+          className="col-span-12 mt-12 md:col-start-5 md:col-end-13 md:row-start-1 md:row-end-3 md:mt-0 md:self-start"
         >
-          <Reveal variant="mask" className="media-dim">
-            <ErpSystemMap />
-          </Reveal>
-          <Anno style={{ top: "-1.6rem", left: 0 }}>COL 5 → 12 · ROW 1 / 2</Anno>
+          <figure className="m-0">
+            <figcaption className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
+              <PlateLabel>Web app · sprint board</PlateLabel>
+              <span className="t-micro dim-2">Internal ERP, eight modules</span>
+            </figcaption>
+            <div className="media-dim">
+              <Reveal variant="media">
+                <ProjectShot
+                  shot={project.shot}
+                  label={`${project.name} sprint board`}
+                  sizes="(max-width: 767px) 92vw, 62vw"
+                />
+              </Reveal>
+            </div>
+          </figure>
+          <Anno style={{ top: "-1.6rem", left: 0 }}>COL 5 → 12</Anno>
         </div>
 
         {/* ---- Row 2, narrow column: the argument ------------------------- */}

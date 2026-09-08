@@ -68,9 +68,14 @@ export default function Reveal({
           scrollTrigger: st,
         });
       } else if (variant === "media") {
+        // clip-path only, deliberately no scale. A `scale` from-state is
+        // applied immediately on creation, so every media reveal still below
+        // the fold sat 6% oversized and pushed the document wider than the
+        // viewport — worse the wider the screen. clip-path can only ever clip
+        // inward, so it cannot overflow, and the expanding-window read is the
+        // same.
         gsap.from(el, {
           clipPath: "inset(14% 8% 14% 8%)",
-          scale: 1.06,
           duration: 1.25,
           ease: EASE.out,
           delay,

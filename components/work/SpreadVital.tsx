@@ -13,6 +13,8 @@ import { SpecColumns, Anno } from "@/components/primitives/Marks";
 import { MetaRow } from "@/components/work/ProjectMeta";
 import ViewProject from "@/components/work/ViewProject";
 import VitalCharts from "@/components/work/VitalCharts";
+import ProjectShot from "@/components/work/ProjectShot";
+import { PlateLabel } from "@/components/work/ProjectMeta";
 import type { Project } from "@/data/projects";
 
 export default function SpreadVital({ project }: { project: Project }) {
@@ -58,8 +60,32 @@ export default function SpreadVital({ project }: { project: Project }) {
         </Reveal>
       </div>
 
-      {/* Charts run the full grid — the only full-width visual in the set */}
+      {/* The portal, centred — the only symmetric composition in the set */}
       <div ref={media} className="grid-page relative mt-[clamp(3rem,9vh,6rem)]">
+        <div className="col-span-12 flex flex-col items-center md:col-start-2 md:col-end-12">
+          <figure className="m-0 w-full">
+            <figcaption className="mb-4 flex flex-wrap items-baseline justify-center gap-3">
+              <PlateLabel>Care provider portal · dashboard</PlateLabel>
+            </figcaption>
+            {/* Block-level centring, not flex. `.browser` sizes itself with a
+                percentage, and a percentage width inside a shrink-to-fit flex
+                item is circular — it collapses to nothing. */}
+            <div className="media-dim">
+              <Reveal variant="media" className="w-full">
+                <ProjectShot
+                  shot={project.shot}
+                  label={`${project.name} care provider dashboard`}
+                  className="mx-auto"
+                  sizes="(max-width: 767px) 92vw, 76vw"
+                />
+              </Reveal>
+            </div>
+          </figure>
+        </div>
+      </div>
+
+      {/* Then the data study the design rests on */}
+      <div className="grid-page relative mt-[clamp(3rem,9vh,6rem)]">
         <div className="col-span-12">
           <Reveal variant="mask" className="media-dim">
             <VitalCharts />

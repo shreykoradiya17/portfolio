@@ -10,6 +10,37 @@
 
 export type Personality = "system" | "immersive" | "editorial" | "precision";
 
+/** Which device frame a project's capture belongs in. */
+export type FrameKind = "browser" | "phone";
+
+/**
+ * A real captured screen, shown inside a device frame.
+ *
+ * Rendered with `fill`, so no intrinsic dimensions are declared and any capture
+ * at the frame's ratio drops in unchanged. Until the file exists the frame
+ * shows a labelled slot rather than inventing a screenshot.
+ *
+ * Ratios: `browser` wants a desktop capture (16:10 by default, e.g. 1440×900);
+ * `phone` wants a 393×852pt screen at any scale factor (1179×2556 @3x).
+ */
+export interface Shot {
+  src: string;
+  alt: string;
+  frame: FrameKind;
+  /** Shown where a browser address bar would be. A route, not a fake URL. */
+  label?: string;
+  /** Browser viewport ratio. Defaults to 16/10. */
+  ratio?: string;
+  /** Capture size, named in the slot and the spec annotation. */
+  spec?: string;
+  /**
+   * Set by the server resolver when the file is not on disk. The frame then
+   * renders its labelled slot while keeping its kind, label and ratio — the
+   * presentation is configured here, only the asset is conditional.
+   */
+  missing?: boolean;
+}
+
 export interface Project {
   slug: string;
   index: string;
@@ -30,6 +61,8 @@ export interface Project {
   facts: { k: string; v: string }[];
   /** Optional real media. When absent, the generative composition renders. */
   media?: { src: string; alt: string }[];
+  /** The project's captured screen, framed for its medium. */
+  shot?: Shot;
 }
 
 export const projects: Project[] = [
@@ -45,6 +78,13 @@ export const projects: Project[] = [
     standfirst:
       "An internal ERP built as a single-page React application. Eight modules, eight roles, one component library — and a permission model that had to be legible to the people using it, not just correct in the database.",
     personality: "system",
+    shot: {
+      src: "/work/technource-erp/board.png",
+      alt: "Technource ERP: the projects module, showing a sprint board with task cards across columns.",
+      frame: "browser",
+      label: "ERP / projects / board",
+      spec: "1440 × 900",
+    },
     chapters: [
       {
         label: "The problem",
@@ -91,6 +131,13 @@ export const projects: Project[] = [
     standfirst:
       "A marketing site for a social product, where the interface had to do the persuading. Scroll-linked reveals, pinned sections and timeline transitions carry the narrative — and an interactive Three.js scene in the hero responds to both scroll and pointer.",
     personality: "immersive",
+    shot: {
+      src: "/work/crushwithme/home.png",
+      alt: "CrushWithMe marketing site: the home page hero, with its interactive three-dimensional scene.",
+      frame: "browser",
+      label: "crushwithme / home",
+      spec: "1440 × 900",
+    },
     chapters: [
       {
         label: "The hero",
@@ -132,6 +179,12 @@ export const projects: Project[] = [
     standfirst:
       "I owned the UI/UX for a social networking app — high-fidelity Figma screens, the design system behind them, and every state they can be in. Then I built the marketing site as a custom WordPress theme from scratch.",
     personality: "editorial",
+    shot: {
+      src: "/work/weall/app-map.png",
+      alt: "WeAll app: a map of nearby users, with a selected profile card showing distance, online status and a send-message action.",
+      frame: "phone",
+      spec: "393 × 852 pt",
+    },
     chapters: [
       {
         label: "Scope",
@@ -173,6 +226,13 @@ export const projects: Project[] = [
     standfirst:
       "A healthcare platform with four portals behind it — Care Provider, Staff, Client and Admin — plus a multilingual, server-rendered marketing site. The whole brief was legibility: vitals, care plans and alerts read correctly at a glance, by people who are busy.",
     personality: "precision",
+    shot: {
+      src: "/work/myvitalview/dashboard.png",
+      alt: "MyVitalView: a care provider dashboard showing vital-sign trends, care plans and alerts.",
+      frame: "browser",
+      label: "myvitalview / care provider",
+      spec: "1440 × 900",
+    },
     chapters: [
       {
         label: "Front of house",
