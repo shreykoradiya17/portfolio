@@ -126,10 +126,24 @@ export default function Nav() {
 
   return (
     <>
+      {/* Blur veil, deliberately OUTSIDE the header.
+
+          mix-blend-mode on a descendant forces its parent to become an
+          isolated group, and a backdrop-filter inside that group can only
+          filter the group's own backdrop — which for the header is empty. Kept
+          inside, the blur measurably did nothing. As its own fixed layer the
+          page is its backdrop, so both the blur and the nav's difference
+          blending work.
+
+          Untinted, because a blur preserves average luminance: the blended
+          text above still resolves its own contrast on paper and on ink. */}
+      <div className="nav-veil" aria-hidden="true" />
+
       <header
         className="fixed inset-x-0 top-0 z-[100]"
         style={{ mixBlendMode: "difference", color: "var(--paper)" }}
       >
+        <div className="relative">
         <div
           className="grid-page items-center"
           style={{ minHeight: "var(--nav-h)", display: "grid" }}
@@ -188,6 +202,7 @@ export default function Nav() {
             transitionTimingFunction: "var(--e-io)",
           }}
         />
+        </div>
       </header>
 
       {/* Mobile panel — its own composition */}
