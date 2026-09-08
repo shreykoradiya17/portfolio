@@ -9,6 +9,7 @@ import Cursor from "@/components/chrome/Cursor";
 import Nav from "@/components/chrome/Nav";
 import SpecHud from "@/components/chrome/SpecHud";
 import Registration from "@/components/chrome/Registration";
+import BackgroundAudio from "@/components/chrome/BackgroundAudio";
 import { site } from "@/data/site";
 
 /** Variable grotesk. The width axis is the point — display type gets
@@ -99,6 +100,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <TransitionProvider>
             <a href="#main" className="skip t-meta">Skip to content</a>
             <SmoothScroll />
+            <BackgroundAudio />
             <Cursor />
             <Registration />
             <Nav />
