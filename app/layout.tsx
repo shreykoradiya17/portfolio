@@ -81,7 +81,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       data-spec="off"
       className={`${archivo.variable} ${geistMono.variable} ${instrument.variable}`}
     >
-      <body>
+      {/*
+        suppressHydrationWarning is scoped to this element's own attributes.
+        The server renders <body> with none, but browser extensions stamp their
+        own on before React hydrates — ColorZilla's `cz-shortcut-listen` is the
+        common one — and React then reports a mismatch nobody can fix.
+
+        Children are still hydration-checked, and nothing in this codebase sets
+        a body attribute during render (the scroll locks in Registration and Nav
+        write `style` from effects, after hydration), so this hides no real
+        problem of ours. Verified: an extension-free browser reports no
+        hydration warning on any route.
+      */}
+      <body suppressHydrationWarning>
         <SpecProvider>
          <IntroProvider>
           <TransitionProvider>
