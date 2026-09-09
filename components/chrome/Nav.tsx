@@ -78,14 +78,8 @@ export default function Nav() {
 
     if (!open) {
       document.body.style.removeProperty("overflow");
-      if (reduced) { panel.style.visibility = "hidden"; return; }
-      const { gsap } = ensureGsap();
-      gsap.to(panel, {
-        clipPath: "inset(0% 0% 100% 0%)",
-        duration: 0.5,
-        ease: EASE.mech,
-        onComplete: () => { panel.style.visibility = "hidden"; },
-      });
+      panel.style.visibility = "hidden";
+      panel.style.clipPath = "inset(0% 0% 100% 0%)";
       return;
     }
 

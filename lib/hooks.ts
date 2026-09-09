@@ -14,8 +14,17 @@ export function useMediaQuery(query: string, initial = false) {
   return matches;
 }
 
-export const useReducedMotion = () =>
-  useMediaQuery("(prefers-reduced-motion: reduce)");
+export function useReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduced(mql.matches);
+    const onChange = (e: MediaQueryListEvent) => setReduced(e.matches);
+    mql.addEventListener("change", onChange);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
+  return reduced;
+}
 
 export const usePointerFine = () =>
   useMediaQuery("(hover: hover) and (pointer: fine)");
