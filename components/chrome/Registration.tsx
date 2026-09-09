@@ -57,6 +57,7 @@ export default function Registration() {
     }, MAX_HOLD + 2600);
 
     gsap.set(el, { autoAlpha: 1 });
+    gsap.set(q("[data-r-inner]"), { autoAlpha: 1 });
 
     const tlIn = gsap.timeline({ defaults: { ease: EASE.out } })
       .fromTo(q("[data-mark]"), { autoAlpha: 0, scale: 0.5 },
@@ -77,12 +78,12 @@ export default function Registration() {
       if (killed) return;
       window.clearTimeout(failsafe);
 
-      // Hand off to the hero now, so its reveal runs under the lifting plate.
-      finish();
-
-      gsap.timeline({ onComplete: teardown })
-        .to(q("[data-r-inner]"), { autoAlpha: 0, y: -20, duration: 0.4, ease: EASE.soft })
-        .to(el, { clipPath: "inset(0% 0% 100% 0%)", duration: 0.95, ease: EASE.mech }, "-=0.16");
+      gsap.timeline({
+        onComplete: () => {
+          teardown();
+          finish();
+        },
+      }).to(el, { clipPath: "inset(0% 0% 100% 0%)", duration: 0.95, ease: EASE.mech });
     });
 
     return () => {
@@ -101,11 +102,10 @@ export default function Registration() {
       style={{
         background: "var(--ink)",
         color: "var(--paper)",
-        visibility: "hidden",
         clipPath: "inset(0% 0% 0% 0%)",
       }}
     >
-      <div data-r-inner className="grid-page w-full">
+      <div data-r-inner className="grid-page w-full" style={{ opacity: 0 }}>
         <div className="col-span-12 flex flex-col items-start gap-4 md:col-start-2 md:col-end-12">
           <div className="flex items-center gap-3">
             <span data-mark style={{ color: "var(--vermilion)" }}>

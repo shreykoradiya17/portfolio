@@ -96,8 +96,11 @@
     font-synthesis: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
     overflow-x: clip;
+  }
+
+  html:not([data-intro="done"]) {
+    overflow: hidden;
   }
 
   img, svg, canvas, video { display: block; max-width: 100%; }
