@@ -66,23 +66,25 @@ export default function ShotPair({
   layout,
   name,
   tone = "ink",
+  reverse = false,
 }: {
   shots?: Shot[];
   layout: PairLayout;
   name: string;
   tone?: "ink" | "paper";
+  reverse?: boolean;
 }) {
   const [a, b] = shots ?? [];
   const lbl = (i: number) => `${name} screen ${i + 1}`;
 
   if (layout === "paired") {
-    // Two devices, the second dropped a beat so the pair has rhythm.
+    // Two devices, second dropped a beat (or first if reversed for symmetry)
     return (
       <div className="flex items-start gap-[clamp(0.75rem,2vw,1.75rem)]">
-        <div className="min-w-0 flex-1">
+        <div className={`min-w-0 flex-1 ${reverse ? "pt-[clamp(1.5rem,6vh,4rem)]" : ""}`}>
           <One shot={a} label={lbl(0)} tone={tone} sizes="(max-width: 767px) 42vw, 16vw" />
         </div>
-        <div className="min-w-0 flex-1 pt-[clamp(1.5rem,6vh,4rem)]">
+        <div className={`min-w-0 flex-1 ${reverse ? "" : "pt-[clamp(1.5rem,6vh,4rem)]"}`}>
           <One shot={b} label={lbl(1)} tone={tone} delay={0.1} sizes="(max-width: 767px) 42vw, 16vw" />
         </div>
       </div>

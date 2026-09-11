@@ -21,25 +21,23 @@ export default function SpreadWeall({ project }: { project: Project }) {
     <article className="relative pb-[var(--sp-section)] pt-[var(--sp-section)]">
       <SpecColumns />
 
-      {/* Headline runs wide across the top, breaking the two-column reading */}
+      {/* Headline centered across top */}
       <div className="grid-page relative">
-        <div className="col-span-12 flex items-baseline gap-4 md:col-span-11">
-          <Reveal variant="rise">
-            <span className="t-display block tnum" style={{ fontSize: "clamp(2.5rem,4.6vw,4.5rem)", lineHeight: 0.8 }}>
+        <div className="col-span-12 flex flex-col items-center justify-center text-center">
+          <Reveal variant="rise" className="flex items-baseline justify-center gap-3 md:gap-4">
+            <span className="project-header-index shrink-0">
               {project.index}
             </span>
-          </Reveal>
-          <div className="min-w-0">
-            <Reveal variant="rise" delay={0.05}>
-              <h3 className="t-title m-0">{project.name}</h3>
+            <div className="min-w-0">
+              <h3 className="project-header-title">{project.name}</h3>
               <span className="t-micro dim-2 mt-2 block">{project.category}</span>
-            </Reveal>
-          </div>
+            </div>
+          </Reveal>
         </div>
 
         <SplitLines
           as="p"
-          className="t-display col-span-12 m-0 mt-[clamp(2rem,5vh,3.5rem)] md:col-span-10"
+          className="t-display col-span-12 m-0 mt-[clamp(2rem,5vh,3.5rem)] text-center md:col-start-2 md:col-end-12"
           stagger={0.07}
         >
           {project.headline}
@@ -47,25 +45,24 @@ export default function SpreadWeall({ project }: { project: Project }) {
       </div>
 
       <div className="grid-page mt-[clamp(2.5rem,7vh,5rem)] items-start">
-        {/* Specimen leads on the left this time */}
-        {/* Two devices, the second dropped a beat so the pair has rhythm */}
-        <div ref={media} className="col-span-12 md:col-start-1 md:col-end-5 lg:col-end-5">
-          <div className="mb-4">
-            <PlateLabel>App screens · designed end to end</PlateLabel>
+        {/* Left: 2 phone screens */}
+        <div ref={media} className="col-span-12 md:col-start-1 md:col-end-5">
+          <div className="mb-4 flex justify-start">
+            <PlateLabel>App screens · discovery</PlateLabel>
           </div>
           <div className="media-dim">
-            <ShotPair shots={project.shots} layout="paired" name={project.name} />
+            <ShotPair shots={project.shots?.slice(0, 2)} layout="paired" name={project.name} />
           </div>
           <Anno style={{ top: "-1.7rem", left: 0 }}>COL 1 → 4 · PAIRED</Anno>
         </div>
 
-        {/* Text offset right and dropped a beat */}
-        <div className="col-span-12 mt-12 flex flex-col md:col-start-6 md:col-end-13 md:mt-[clamp(1rem,4vh,3rem)] md:self-stretch lg:col-start-6 lg:col-end-12">
+        {/* Middle: centered data content with equal spacing */}
+        <div className="col-span-12 mt-12 flex flex-col items-center text-center md:col-start-5 md:col-end-9 md:mt-0 md:self-stretch px-2 md:px-4 lg:px-6">
           <Reveal variant="rise">
-            <p className="t-body m-0 max-w-[44ch]">{project.standfirst}</p>
+            <p className="t-body m-0 text-center">{project.standfirst}</p>
           </Reveal>
 
-          <Reveal variant="stagger" className="mt-8 flex flex-col gap-3 md:max-w-[30rem]" select=":scope > span">
+          <Reveal variant="stagger" className="mt-8 flex flex-col gap-3 w-full" select=":scope > span">
             {project.facts.map((f) => (
               <span key={f.k} className="flex items-baseline justify-between gap-4 border-b border-rule-soft pb-2">
                 <span className="t-micro dim-2">{f.k}</span>
@@ -74,11 +71,20 @@ export default function SpreadWeall({ project }: { project: Project }) {
             ))}
           </Reveal>
 
-          {/* Pushed to the foot of the column so it lands level with the
-              device's base instead of leaving one open corner. */}
-          <Reveal variant="rise" delay={0.1} className="mt-8 md:mt-auto md:pt-[clamp(2rem,6vh,4rem)]">
+          <Reveal variant="rise" delay={0.1} className="mt-8 flex justify-center md:mt-auto md:pt-[clamp(2rem,4vh,3rem)]">
             <ViewProject project={project} mediaRef={media} />
           </Reveal>
+        </div>
+
+        {/* Right: 2 more phone screens (mirrored drop offset for equal side spacing) */}
+        <div className="col-span-12 mt-12 md:col-start-9 md:col-end-13 md:mt-0">
+          <div className="mb-4 flex justify-end">
+            <PlateLabel>Product flows · community & messaging</PlateLabel>
+          </div>
+          <div className="media-dim">
+            <ShotPair shots={project.shots?.slice(2, 4)} layout="paired" name={project.name} reverse={true} />
+          </div>
+          <Anno style={{ top: "-1.7rem", right: 0 }}>COL 9 → 12 · PAIRED</Anno>
         </div>
       </div>
 

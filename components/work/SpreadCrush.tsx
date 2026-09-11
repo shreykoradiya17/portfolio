@@ -51,15 +51,15 @@ export default function SpreadCrush({ project }: { project: Project }) {
 
         {/* ---- Overlay content ---------------------------------------------- */}
         <div className="grid-page relative z-[2] h-full items-start">
-          <Reveal variant="rise" className="col-span-3 md:col-span-1">
-            <span className="t-display block tnum" style={{ fontSize: "clamp(2.5rem,4.6vw,4.5rem)", lineHeight: 0.8 }}>
-              {project.index}
-            </span>
-          </Reveal>
-          <div className="col-span-9 md:col-span-4">
-            <Reveal variant="rise" delay={0.05}>
-              <h3 className="t-title m-0">{project.name}</h3>
-              <span className="t-micro dim-2 mt-2 block">{project.category}</span>
+          <div className="col-span-12 md:col-span-6">
+            <Reveal variant="rise" className="flex items-baseline gap-3 md:gap-4">
+              <span className="project-header-index shrink-0">
+                {project.index}
+              </span>
+              <div className="min-w-0">
+                <h3 className="project-header-title">{project.name}</h3>
+                <span className="t-micro dim-2 mt-2 block">{project.category}</span>
+              </div>
             </Reveal>
           </div>
         </div>

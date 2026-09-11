@@ -11,6 +11,7 @@ import ProjectOutro from "@/components/work/ProjectOutro";
 import { MetaRow } from "@/components/work/ProjectMeta";
 import Footer from "@/components/sections/Footer";
 import { SpecColumns, CropMarks } from "@/components/primitives/Marks";
+import HeroObject from "@/components/work/HeroObject";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -65,6 +66,20 @@ export default async function ProjectPage({
             <span className="t-micro dim col-span-6 text-right">{project.role}</span>
           </div>
 
+          {/* The hero object, filling the held beat between the metadata and
+              the name plate. Right of centre so it crowds neither. */}
+          <div className="pointer-events-none absolute inset-0 z-[1] grid-page items-center">
+            <HeroObject
+              variant={project.heroObject}
+              loopText={project.heroLoopText}
+              className={
+                project.heroObject === "textloop"
+                  ? "col-start-2 col-end-12 md:col-start-5 md:col-end-13 lg:col-start-6 lg:col-end-13"
+                  : "col-start-3 col-end-13 aspect-square max-h-[52svh] md:col-start-6 md:col-end-12 lg:col-start-7 lg:col-end-12"
+              }
+            />
+          </div>
+
           <div className="grid-page relative z-[2]" aria-hidden="true">
             <span className="t-micro dim-2 col-span-12 flex items-center gap-2">
               <span className="relative block h-6 w-px overflow-hidden" style={{ background: "var(--rule)" }}>
@@ -116,7 +131,8 @@ export default async function ProjectPage({
           }`}
         >
           <div className="grid-page">
-            <div className="col-span-12 lg:col-end-12">
+            {/* Full 12 column measure when 4 shots are present (e.g. WeAll) */}
+            <div className={resolved.shots && resolved.shots.length > 2 ? "col-span-12" : "col-span-12 md:col-end-11 lg:col-end-11"}>
               <ProjectVisual project={resolved} />
             </div>
           </div>

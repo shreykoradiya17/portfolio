@@ -35,12 +35,14 @@ export interface Shot {
   ratio?: string;
   /** Capture size, named in the slot and the spec annotation. */
   spec?: string;
-  /**
-   * Set by the server resolver when the file is not on disk. The frame then
-   * renders its labelled slot while keeping its kind, label and ratio — the
-   * presentation is configured here, only the asset is conditional.
-   */
+  /** Set by the server resolver when the file is not on disk. */
   missing?: boolean;
+  /** Optional array of image sources for a cycling frame slideshow. */
+  slides?: string[];
+  /** Slide rotation interval in milliseconds. */
+  slideInterval?: number;
+  /** Optional iframe URL to render a live website inside the browser frame. */
+  iframeUrl?: string;
 }
 
 export interface Project {
@@ -68,6 +70,13 @@ export interface Project {
    * each spread composes the pair differently.
    */
   shots?: Shot[];
+  /**
+   * Which object fills the hero's held space. Defaults to the metallic sphere;
+   * "textloop" runs a ring of type on a path instead.
+   */
+  heroObject?: "ball" | "textloop";
+  /** Line carried by the "textloop" hero object. Kept factual. */
+  heroLoopText?: string;
 }
 
 export const projects: Project[] = [
@@ -83,22 +92,36 @@ export const projects: Project[] = [
     standfirst:
       "An internal ERP built as a single-page React application. Eight modules, eight roles, one component library — and a permission model that had to be legible to the people using it, not just correct in the database.",
     personality: "system",
+    heroObject: "textloop",
+    heroLoopText: "Eight modules · Eight roles",
     shots: [
       {
-        src: "/work/technource-erp/01-board.png",
-        alt: "Technource ERP, projects module: a sprint board with task cards arranged across columns.",
+        src: "/work/technource-erp/erp01.webp",
+        alt: "Technource ERP: Sprint board and task management module.",
         frame: "browser",
         label: "ERP / projects / board",
-        caption: "Projects · board, drag & drop, sprint sync",
-        spec: "1440 × 900",
-      },
-      {
-        src: "/work/technource-erp/02-reporting.png",
-        alt: "Technource ERP, reporting module: dashboards summarising attendance and project data.",
-        frame: "browser",
-        label: "ERP / reporting",
         caption: "Reporting · dashboards across eight modules",
         spec: "1440 × 900",
+        slides: [
+          "/work/technource-erp/erp01.webp",
+          "/work/technource-erp/erp06.webp",
+        ],
+        slideInterval: 1500,
+      },
+      {
+        src: "/work/technource-erp/erp02.webp",
+        alt: "Technource ERP: Enterprise reporting and module screens.",
+        frame: "browser",
+        label: "ERP / reporting",
+        caption: "Projects · board, drag & drop, sprint sync",
+        spec: "1440 × 900",
+        slides: [
+          "/work/technource-erp/erp02.webp",
+          "/work/technource-erp/erp03.webp",
+          "/work/technource-erp/erp04.webp",
+          "/work/technource-erp/erp05.webp",
+        ],
+        slideInterval: 1500,
       },
     ],
     chapters: [
@@ -150,14 +173,16 @@ export const projects: Project[] = [
     shots: [
       {
         src: "/work/crushwithme/01-home.png",
+        iframeUrl: "https://crushwithme.com/",
         alt: "CrushWithMe marketing site: the home page hero with its interactive three-dimensional scene.",
         frame: "browser",
         label: "crushwithme / home",
         caption: "Home · the interactive hero",
-        spec: "1440 × 900",
+        spec: "1440 × 800",
+        ratio: "1440 / 800",
       },
       {
-        src: "/work/crushwithme/02-experience.png",
+        src: "/work/crushwithme/cwm01.webp",
         alt: "CrushWithMe marketing site: a scroll-linked section further down the page.",
         frame: "browser",
         label: "crushwithme / experience",
@@ -208,17 +233,31 @@ export const projects: Project[] = [
     personality: "editorial",
     shots: [
       {
-        src: "/work/weall/01-map.png",
+        src: "/work/weall/weall01.webp",
         alt: "WeAll app: a map of nearby users, with a selected profile card showing distance, online status and a send-message action.",
         frame: "phone",
-        caption: "Nearby discovery · map, filters",
+        caption: "Nearby discovery · map & location",
         spec: "393 × 852 pt",
       },
       {
-        src: "/work/weall/02-profile.png",
-        alt: "WeAll app: a second screen from the product, designed in the same system.",
+        src: "/work/weall/weall02.webp",
+        alt: "WeAll app: onboarding sign in screen with email and social login options.",
         frame: "phone",
-        caption: "Profiles, groups and messaging",
+        caption: "Onboarding · welcome & sign in",
+        spec: "393 × 852 pt",
+      },
+      {
+        src: "/work/weall/weall03.webp",
+        alt: "WeAll app: user profile detail view with location map and action buttons.",
+        frame: "phone",
+        caption: "Profiles · user details & map view",
+        spec: "393 × 852 pt",
+      },
+      {
+        src: "/work/weall/weall04.webp",
+        alt: "WeAll app: authentication and social account sign in options.",
+        frame: "phone",
+        caption: "Account · social login & authentication",
         spec: "393 × 852 pt",
       },
     ],

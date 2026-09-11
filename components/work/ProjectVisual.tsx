@@ -12,6 +12,8 @@
 import { useRef } from "react";
 import dynamic from "next/dynamic";
 import { useInView, usePointerFine, useReducedMotion } from "@/lib/hooks";
+import Reveal from "@/components/primitives/Reveal";
+import ProjectShot from "@/components/work/ProjectShot";
 import ErpSystemMap from "@/components/work/ErpSystemMap";
 import WeallSpecimen from "@/components/work/WeallSpecimen";
 import ShotPair, { type PairLayout } from "@/components/work/ShotPair";
@@ -92,12 +94,34 @@ export default function ProjectVisual({ project }: { project: Project }) {
                 {project.shots.length} of the surfaces
               </span>
             </div>
-            <ShotPair
-              shots={project.shots}
-              layout={LAYOUT[project.personality]}
-              name={project.name}
-              tone={onInk ? "paper" : "ink"}
-            />
+            {/* 4 Phone screens grid layout */}
+            {project.shots.length > 2 ? (
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-[clamp(1rem,2vw,2rem)] items-start">
+                {project.shots.map((shot, index) => (
+                  <figure key={shot.src + index} className="m-0 w-full">
+                    <Reveal variant="media" delay={index * 0.08} className="w-full">
+                      <ProjectShot shot={shot} label={`${project.name} screen ${index + 1}`} />
+                    </Reveal>
+                    {shot.caption ? (
+                      <figcaption
+                        className="t-micro mt-3 flex items-baseline gap-2 leading-relaxed"
+                        style={{ color: onInk ? "#6B6862" : "var(--graphite-2)" }}
+                      >
+                        <span aria-hidden className="mt-[0.4em] block h-[5px] w-[5px] shrink-0" style={{ background: "var(--vermilion)" }} />
+                        {shot.caption}
+                      </figcaption>
+                    ) : null}
+                  </figure>
+                ))}
+              </div>
+            ) : (
+              <ShotPair
+                shots={project.shots}
+                layout={LAYOUT[project.personality]}
+                name={project.name}
+                tone={onInk ? "paper" : "ink"}
+              />
+            )}
           </div>
         ) : null
       )}

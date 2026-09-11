@@ -214,6 +214,25 @@
 .tnum { font-variant-numeric: tabular-nums; }
 .balance { text-wrap: balance; }
 
+/* Homepage project header consistency */
+.project-header-index {
+  font-family: var(--font-mono);
+  font-size: clamp(1.25rem, 2.2vw, 2rem);
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--graphite);
+}
+
+.project-header-title {
+  font-family: var(--font-sans);
+  font-size: clamp(2rem, 4.2vw, 3.75rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
 /* ==========================================================================
    GRID — 12 fluid columns, edge aligned, never a centred box
    ========================================================================== */
@@ -600,7 +619,7 @@ ul:has(.skill-item[data-hot="1"]) .skill-item[data-hot="0"] { color: var(--graph
   position: relative;
   inline-size: 100%;
   overflow: hidden;
-  background: var(--paper-2);
+  background: var(--ink);
 }
 
 [data-spec="on"] .browser-body {
@@ -714,3 +733,4 @@ ul:has(.skill-item[data-hot="1"]) .skill-item[data-hot="0"] { color: var(--graph
     backdrop-filter: none;
   }
 }
+

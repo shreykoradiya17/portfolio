@@ -27,20 +27,17 @@ export default function SpreadVital({ project }: { project: Project }) {
       <SpecColumns />
 
       <div className="grid-page relative">
-        <div className="col-span-12 flex items-baseline justify-center gap-4 text-center">
-          <Reveal variant="rise">
-            <span className="t-display block tnum" style={{ fontSize: "clamp(2rem,3.4vw,3.25rem)", lineHeight: 0.8 }}>
+        <div className="col-span-12 flex flex-col items-center justify-center text-center">
+          <Reveal variant="rise" className="flex items-baseline justify-center gap-3 md:gap-4">
+            <span className="project-header-index shrink-0">
               {project.index}
             </span>
+            <h3 className="project-header-title">{project.name}</h3>
           </Reveal>
-          <Reveal variant="rise" delay={0.05}>
-            <h3 className="t-title m-0">{project.name}</h3>
+          <Reveal variant="rise" delay={0.08} className="mt-3">
+            <span className="t-micro dim-2">{project.category}</span>
           </Reveal>
         </div>
-
-        <Reveal variant="rise" delay={0.08} className="col-span-12 mt-3 text-center">
-          <span className="t-micro dim-2">{project.category}</span>
-        </Reveal>
 
         <SplitLines
           as="p"

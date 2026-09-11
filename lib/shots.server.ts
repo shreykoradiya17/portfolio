@@ -19,13 +19,36 @@ export function resolveShots(project: Project): Project {
   return {
     ...project,
     shots: project.shots.map((shot) => {
+      if (shot.iframeUrl) {
+        return { ...shot, missing: false };
+      }
+      let missing = false;
       const file = path.join(process.cwd(), "public", shot.src);
       try {
-        if (fs.statSync(file).isFile()) return shot;
+        if (!fs.statSync(file).isFile()) missing = true;
       } catch {
-        /* any stat failure counts as missing */
+        missing = true;
       }
-      return { ...shot, missing: true };
+
+      if (shot.slides?.length) {
+        const validatedSlides = shot.slides.filter((slideSrc) => {
+          try {
+            return fs.statSync(path.join(process.cwd(), "public", slideSrc)).isFile();
+          } catch {
+            return false;
+          }
+        });
+        if (validatedSlides.length > 0) {
+          return {
+            ...shot,
+            src: validatedSlides[0],
+            slides: validatedSlides,
+            missing: false,
+          };
+        }
+      }
+
+      return { ...shot, missing };
     }),
   };
 }

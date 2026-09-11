@@ -27,16 +27,11 @@ export default function SpreadErp({ project }: { project: Project }) {
       <div className="grid-page relative items-start">
         {/* ---- Row 1, narrow column: the name plate --------------------- */}
         <div className="col-span-12 md:col-start-1 md:col-end-5">
-          <Reveal variant="rise" className="flex items-baseline gap-4">
-            <span
-              className="t-display block tnum shrink-0"
-              style={{ fontSize: "clamp(2.5rem,4.4vw,4.25rem)", lineHeight: 0.78 }}
-            >
+          <Reveal variant="rise" className="flex items-baseline gap-3 md:gap-4">
+            <span className="project-header-index shrink-0">
               {project.index}
             </span>
-            <span className="min-w-0">
-              <h3 className="t-title m-0">{project.name}</h3>
-            </span>
+            <h3 className="project-header-title min-w-0">{project.name}</h3>
           </Reveal>
           <Reveal variant="rise" delay={0.06}>
             <span className="t-micro dim-2 mt-3 block border-t border-rule pt-2">
