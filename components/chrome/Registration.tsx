@@ -25,7 +25,7 @@ import { Registration as Mark } from "@/components/primitives/Marks";
 const MAX_HOLD = 1700;
 
 export default function Registration() {
-  const { finish } = useIntro();
+  const { introDone, finish } = useIntro();
   const reduced = useReducedMotion();
   const root = useRef<HTMLDivElement>(null);
 
@@ -41,7 +41,8 @@ export default function Registration() {
     const release = () => document.body.style.removeProperty("overflow");
     const teardown = () => { release(); el.style.display = "none"; };
 
-    if (reduced) { teardown(); finish(); return; }
+    const isAlreadyDone = introDone || (typeof window !== "undefined" && sessionStorage.getItem("portfolio_intro_done") === "true");
+    if (isAlreadyDone || reduced) { teardown(); finish(); return; }
 
     document.body.style.overflow = "hidden";
 

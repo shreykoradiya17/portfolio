@@ -23,9 +23,9 @@ import { site } from "@/data/site";
 import { Registration as Mark } from "@/components/primitives/Marks";
 
 const LINKS = [
-  { href: "#work", label: "Work", n: "01" },
-  { href: "#about", label: "About", n: "02" },
-  { href: "#contact", label: "Contact", n: "03" },
+  { href: "/#work", label: "Work", n: "01" },
+  { href: "/#about", label: "About", n: "02" },
+  { href: "/#contact", label: "Contact", n: "03" },
 ];
 
 export default function Nav() {
@@ -145,7 +145,7 @@ export default function Nav() {
           <div className="col-span-12 flex items-center justify-between gap-4">
             {/* Identity */}
             <div className="flex items-baseline gap-2 md:gap-3">
-              <a href="#top" className="t-meta ul-link" style={{ letterSpacing: "0.1em" }}>
+              <a href="/" className="t-meta ul-link" style={{ letterSpacing: "0.1em" }}>
                 {site.name}
               </a>
               <span
@@ -159,17 +159,20 @@ export default function Nav() {
 
             {/* Desktop links */}
             <nav aria-label="Primary" className="hidden items-center gap-6 md:flex lg:gap-8">
-              {LINKS.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
-                  className="t-meta ul-link"
-                  aria-current={active === l.href ? "true" : undefined}
-                  style={{ opacity: active === l.href ? 1 : 0.72 }}
-                >
-                  {l.label}
-                </a>
-              ))}
+              {LINKS.map((l) => {
+                const isActive = active === l.href || active === l.href.replace("/", "");
+                return (
+                  <a
+                    key={l.href}
+                    href={l.href}
+                    className="t-meta ul-link"
+                    aria-current={isActive ? "true" : undefined}
+                    style={{ opacity: isActive ? 1 : 0.72 }}
+                  >
+                    {l.label}
+                  </a>
+                );
+              })}
             </nav>
 
             {/* Mobile trigger */}
