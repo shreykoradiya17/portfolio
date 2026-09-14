@@ -7,7 +7,7 @@ export const site = {
   coords: "23.02°N / 72.57°E",
   timezone: "Asia/Kolkata",
   email: "shreykoradiya17@gmail.com",
-  linkedin: "https://www.linkedin.com/in/shrey-patel-ui-ux/",
+  linkedin: "https://linkedin.com/in/shreykoradiya/",
   year: "2026",
   status: "Available for select projects",
   /** Nearly four years — 2022 to present. Stated as the résumé states it. */

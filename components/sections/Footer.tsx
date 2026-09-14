@@ -28,7 +28,7 @@ export default function Footer() {
             >
               LinkedIn
             </a>
-            <a href="#top" className="t-micro ul-link">Top</a>
+            <a href="/#top" className="t-micro ul-link">Top</a>
           </nav>
 
           <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
