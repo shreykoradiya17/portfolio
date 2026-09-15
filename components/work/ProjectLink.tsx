@@ -17,7 +17,7 @@ export default function ProjectLink({
   mediaRef,
   children,
   className = "",
-  label = "View project",
+  label = "Explore",
   ...rest
 }: {
   project: Pick<Project, "slug" | "index" | "name" | "category">;

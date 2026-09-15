@@ -46,7 +46,7 @@ export default function ProjectOutro({ next }: { next: Project }) {
       <div className="grid-page mt-[clamp(2.5rem,7vh,5rem)]">
         <div className="col-span-12">
           <Magnetic strength={0.1} radius={260}>
-            <ProjectLink project={next} mediaRef={stage} label={`Open ${next.name}`} className="block">
+            <ProjectLink project={next} mediaRef={stage} label="Explore" className="block">
               <span className="t-meta acc tnum block">{next.index}</span>
               <span
                 className="mt-3 block whitespace-nowrap font-sans font-semibold leading-none tracking-tight"

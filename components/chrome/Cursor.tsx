@@ -20,7 +20,7 @@ type Mode = "default" | "view" | "link" | "explore" | "text";
 
 const PRESETS: Record<Mode, { size: number; fill: boolean; label: string; dot: boolean }> = {
   default: { size: 26, fill: false, label: "", dot: true },
-  view:    { size: 98, fill: true,  label: "View project", dot: false },
+  view:    { size: 98, fill: true,  label: "Explore", dot: false },
   link:    { size: 62, fill: false, label: "Open ↗", dot: false },
   explore: { size: 68, fill: false, label: "Explore", dot: false },
   text:    { size: 0,  fill: false, label: "", dot: true },
