@@ -48,7 +48,15 @@ export default function ProjectOutro({ next }: { next: Project }) {
           <Magnetic strength={0.1} radius={260}>
             <ProjectLink project={next} mediaRef={stage} label={`Open ${next.name}`} className="block">
               <span className="t-meta acc tnum block">{next.index}</span>
-              <span className="t-hero mt-3 block">{next.name}</span>
+              <span
+                className="mt-3 block whitespace-nowrap font-sans font-semibold leading-none tracking-tight"
+                style={{
+                  fontSize: "clamp(2.25rem, 8vw, 7.5rem)",
+                  textTransform: "none",
+                }}
+              >
+                {next.name}
+              </span>
               <span className="t-micro dim mt-4 block">{next.category}</span>
             </ProjectLink>
           </Magnetic>

@@ -93,7 +93,7 @@ export const projects: Project[] = [
       "An internal ERP built as a single-page React application. Eight modules, eight roles, one component library — and a permission model that had to be legible to the people using it, not just correct in the database.",
     personality: "system",
     heroObject: "textloop",
-    heroLoopText: "Eight modules · Eight roles",
+    heroLoopText: "Designing clarity into enterprise complexity",
     shots: [
       {
         src: "/work/technource-erp/erp01.webp",
@@ -170,6 +170,8 @@ export const projects: Project[] = [
     standfirst:
       "A marketing site for a social product, where the interface had to do the persuading. Scroll-linked reveals, pinned sections and timeline transitions carry the narrative — and an interactive Three.js scene in the hero responds to both scroll and pointer.",
     personality: "immersive",
+    heroObject: "textloop",
+    heroLoopText: "Creative WebGL · Lenis Scroll · Pinned Transitions",
     shots: [
       {
         src: "/work/crushwithme/01-home.png",
@@ -231,6 +233,8 @@ export const projects: Project[] = [
     standfirst:
       "I owned the UI/UX for a social networking app — high-fidelity Figma screens, the design system behind them, and every state they can be in. Then I built the marketing site as a custom WordPress theme from scratch.",
     personality: "editorial",
+    heroObject: "textloop",
+    heroLoopText: "Nearby Discovery · Community Spaces · Bilingual UI",
     shots: [
       {
         src: "/work/weall/weall01.webp",
@@ -293,7 +297,7 @@ export const projects: Project[] = [
   {
     slug: "myvitalview",
     index: "04",
-    name: "MyVitalView",
+    name: "My Vital View",
     category: "Healthcare / Product / Frontend",
     year: "2025 — 2026",
     role: "Frontend Engineering + UI/UX",
@@ -302,22 +306,18 @@ export const projects: Project[] = [
     standfirst:
       "A healthcare platform with four portals behind it — Care Provider, Staff, Client and Admin — plus a multilingual, server-rendered marketing site. The whole brief was legibility: vitals, care plans and alerts read correctly at a glance, by people who are busy.",
     personality: "precision",
+    heroObject: "textloop",
+    heroLoopText: "Healthcare Platform · Vital Analytics · Next.js SSR",
     shots: [
       {
         src: "/work/myvitalview/01-provider.png",
-        alt: "MyVitalView: a care provider dashboard showing vital-sign trends, care plans and alerts.",
+        iframeUrl: "https://myvitalview.com/en",
+        alt: "MyVitalView marketing site: healthcare platform with live portal views.",
         frame: "browser",
-        label: "myvitalview / care provider",
-        caption: "Care provider · clinical dashboard",
-        spec: "1440 × 900",
-      },
-      {
-        src: "/work/myvitalview/02-client.png",
-        alt: "MyVitalView: the client-facing portal, presenting the same record for a different reader.",
-        frame: "browser",
-        label: "myvitalview / client",
-        caption: "Client portal · the same record, read differently",
-        spec: "1440 × 900",
+        label: "myvitalview / live",
+        caption: "Live marketing site · interactive portal",
+        spec: "1440 × 800",
+        ratio: "1440 / 800",
       },
     ],
     chapters: [

@@ -53,6 +53,7 @@ function SceneStage() {
 
 /** The generated composition behind each project, where there is one. */
 function Study({ project }: { project: Project }) {
+  if (project.slug === "crushwithme") return null;
   switch (project.personality) {
     case "system": return <ErpSystemMap />;
     case "immersive": return <SceneStage />;

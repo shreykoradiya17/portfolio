@@ -60,14 +60,14 @@ export default function SpreadVital({ project }: { project: Project }) {
           not offset. After three offset compositions, centring reads as
           restraint rather than default. */}
       <div ref={media} className="grid-page relative mt-[clamp(3rem,9vh,6rem)]">
-        <div className="col-span-12 md:col-start-2 md:col-end-12">
+        <div className="col-span-12 md:col-start-3 md:col-end-11">
           <div className="mb-4 flex justify-center">
-            <PlateLabel>Four portals · two of them</PlateLabel>
+            <PlateLabel>Marketing site · live view</PlateLabel>
           </div>
           <div className="media-dim">
             <ShotPair shots={project.shots} layout="balanced" name={project.name} />
           </div>
-          <Anno style={{ top: "-1.7rem", left: 0 }}>COL 2 → 11 · SYMMETRIC</Anno>
+          <Anno style={{ top: "-1.7rem", left: 0 }}>COL 3 → 10 · SYMMETRIC</Anno>
         </div>
       </div>
 

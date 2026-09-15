@@ -68,25 +68,24 @@ export default async function ProjectPage({
 
           {/* The hero object, filling the held beat between the metadata and
               the name plate. Right of centre so it crowds neither. */}
-          <div className="pointer-events-none absolute inset-0 z-[1] grid-page items-center">
-            <HeroObject
-              variant={project.heroObject}
-              loopText={project.heroLoopText}
-              className={
-                project.heroObject === "textloop"
-                  ? "col-start-2 col-end-12 md:col-start-5 md:col-end-13 lg:col-start-6 lg:col-end-13"
-                  : "col-start-3 col-end-13 aspect-square max-h-[52svh] md:col-start-6 md:col-end-12 lg:col-start-7 lg:col-end-12"
-              }
-            />
-          </div>
-
-          <div className="grid-page relative z-[2]" aria-hidden="true">
-            <span className="t-micro dim-2 col-span-12 flex items-center gap-2">
-              <span className="relative block h-6 w-px overflow-hidden" style={{ background: "var(--rule)" }}>
-                <span className="scroll-tick absolute inset-x-0 top-0 block h-2" style={{ background: "var(--graphite)" }} />
-              </span>
-              Scroll
-            </span>
+          {/* The hero object, filling the held beat between the metadata and
+              the name plate. When textloop, it spans full width from edge to edge. */}
+          <div className="pointer-events-none absolute inset-0 z-[1] flex items-center -translate-y-8 md:-translate-y-12 overflow-hidden">
+            {project.heroObject === "textloop" ? (
+              <HeroObject
+                variant={project.heroObject}
+                loopText={project.heroLoopText}
+                className="w-full"
+              />
+            ) : (
+              <div className="grid-page w-full items-center">
+                <HeroObject
+                  variant={project.heroObject}
+                  loopText={project.heroLoopText}
+                  className="col-start-3 col-end-13 aspect-square max-h-[52svh] md:col-start-6 md:col-end-12 lg:col-start-7 lg:col-end-12"
+                />
+              </div>
+            )}
           </div>
 
           <div className="grid-page relative z-[2] w-full pb-[8vh]">

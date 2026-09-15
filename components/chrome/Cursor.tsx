@@ -94,7 +94,15 @@ export default function Cursor() {
       ty = e.clientY;
       targetOpacity = 1;
 
-      const el = (e.target as HTMLElement | null)?.closest?.(
+      const targetEl = e.target as HTMLElement | null;
+      const onInk = Boolean(targetEl?.closest(".on-ink"));
+      const inkVal = onInk ? "1" : "0";
+      if (ring.dataset.ink !== inkVal) {
+        ring.dataset.ink = inkVal;
+        dot.dataset.ink = inkVal;
+      }
+
+      const el = targetEl?.closest?.(
         "[data-cursor]"
       ) as HTMLElement | null;
 
@@ -206,8 +214,7 @@ export default function Cursor() {
       </div>
       <div
         ref={dotRef}
-        className="absolute left-0 top-0 h-[5px] w-[5px] rounded-full"
-        style={{ background: "var(--ink)" }}
+        className="cursor-dot absolute left-0 top-0 h-[5px] w-[5px] rounded-full"
       />
     </div>
   );

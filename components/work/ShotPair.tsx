@@ -77,6 +77,14 @@ export default function ShotPair({
   const [a, b] = shots ?? [];
   const lbl = (i: number) => `${name} screen ${i + 1}`;
 
+  if (!b) {
+    return (
+      <div className="mx-auto w-full max-w-[900px]">
+        <One shot={a} label={lbl(0)} tone={tone} sizes="(max-width: 767px) 100vw, 65vw" />
+      </div>
+    );
+  }
+
   if (layout === "paired") {
     // Two devices, second dropped a beat (or first if reversed for symmetry)
     return (

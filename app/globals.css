@@ -420,22 +420,22 @@
   border: 1px solid var(--ink);
   color: var(--ink);
   background: transparent;
-  mix-blend-mode: difference;
-  filter: invert(1);            /* difference + invert keeps it legible on both inks */
+  mix-blend-mode: normal;
+  filter: none;
   transition: background-color var(--d-fast) var(--e-soft),
               border-color var(--d-fast) var(--e-soft),
               color var(--d-fast) var(--e-soft);
+}
+.cursor-ring[data-ink="1"] {
+  border-color: var(--paper);
+  color: var(--paper);
 }
 .cursor-ring[data-fill="1"] {
   background: var(--vermilion);
   border-color: var(--vermilion);
   color: var(--paper);
-  mix-blend-mode: normal;
-  filter: none;
 }
 .cursor-ring[data-spec="1"] {
-  mix-blend-mode: normal;
-  filter: none;
   border-color: var(--blueprint);
   color: var(--blueprint);
   border-radius: 0;
@@ -443,6 +443,14 @@
 .cursor-ring[data-spec="1"][data-fill="1"] {
   background: var(--blueprint);
   color: var(--paper);
+}
+
+.cursor-dot {
+  background: var(--ink);
+  transition: background-color var(--d-fast) var(--e-soft);
+}
+.cursor-dot[data-ink="1"] {
+  background: var(--paper);
 }
 
 /* Hero scroll cue — the only looping animation on the page */

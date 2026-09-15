@@ -26,7 +26,7 @@ export default function NamePlate({
     <div className="col-span-12 flex items-end justify-between gap-6">
       <div className="min-w-0">
         <span className="t-meta acc tnum block">{index}</span>
-        <Title className="t-display m-0 mt-2 block">{name}</Title>
+        <Title className="t-display m-0 mt-2 block" style={{ textTransform: "none" }}>{name}</Title>
       </div>
       {category ? (
         <span className="t-meta dim hidden shrink-0 pb-2 lg:block">{category}</span>

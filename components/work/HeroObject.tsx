@@ -25,14 +25,18 @@ const TextLoop = dynamic(() => import("@/components/vendor/TextLoop"), {
   loading: () => null,
 });
 
+import type { TextLoopShape } from "@/components/vendor/TextLoop";
+
 export default function HeroObject({
   variant = "ball",
   loopText = "",
+  shape = "wave",
   color,
   className = "",
 }: {
   variant?: "ball" | "textloop";
   loopText?: string;
+  shape?: TextLoopShape;
   color?: string;
   className?: string;
 }) {
@@ -43,24 +47,23 @@ export default function HeroObject({
 
   if (variant === "textloop") {
     return (
-      <div ref={stage} className={`relative ${className}`}>
+      <div ref={stage} className={`relative w-full ${className}`}>
         {active ? (
           <TextLoop
             text={loopText}
-            shape="circle"
+            shape={shape}
             separator="✦"
             uppercase
-            curviness={96}
+            curviness={90}
             fontSize={34}
-            fontWeight={600}
-            letterSpacing={2}
+            fontWeight={700}
+            letterSpacing={3}
             speed={58}
-            /* Two inks, as everywhere else: the accent carries the ribbon, the
-               type sits on it in ink. */
+            /* Signature vermilion ribbon with crisp white text flowing edge to edge */
             ribbon
             ribbonColor="var(--vermilion)"
-            ribbonWidth={62}
-            color="var(--ink)"
+            ribbonWidth={70}
+            color="#FFFFFF"
             pauseOnHover
           />
         ) : null}
